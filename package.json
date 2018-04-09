@@ -1,0 +1,26 @@
+{
+  "name": "ensign",
+  "version": "1.0.0",
+  "description": "simple security gateway server",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ensigns/ensign.git"
+  },
+  "keywords": [
+    "gateway",
+    "security"
+  ],
+  "author": "birm",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ensigns/ensign/issues"
+  },
+  "homepage": "https://github.com/ensigns/ensign#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
