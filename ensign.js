@@ -36,10 +36,11 @@ class Ensign{
 }
 
 // route like /host/redirected/uri
-class EnRoute{
+class TestRoute{
   route(path){
-    var host = path;
-    var route = path;
+    // TODO if leading slash, increment each by 1
+    var host = path.split("/")[0];
+    var route = path.slice(1);
     return [host, path];
   }
 
@@ -73,5 +74,6 @@ class TestSign{
   }
 }
 
+module.exports = {"Ensign": Ensign, "TestRoute": TestRoute, "TestAuth": TestAuth, "TestAccess": TestAccess, "TestSign": TestSign};
 
 // TODO -- big TODO document this protocol
