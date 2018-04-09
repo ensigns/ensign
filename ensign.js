@@ -1,3 +1,5 @@
+var http = require('http');
+
 class Ensign{
   constructor(id, route, auth, access, sign){
     this.id = id;
@@ -9,7 +11,7 @@ class Ensign{
     this.sign = sign;
   }
   // be sure to describe what's expected for req and path
-  request(path, req){
+  request(path, req, done){
     var routed = this.route.route(path);
     var host = routed[0];
     var uri = routed[1];
@@ -17,20 +19,33 @@ class Ensign{
     // check if user is who they say and can access
     var valid = this.access.access(name, path) && this.auth.auth(name, req.header.Authorization);
     if (valid){
-
       var out = req;
       out.host = host;
       out.path = uri;
-      var signature = this.sign.sign();
-      out.header.Via = this.id;
-      out.header.Authorization = signature;
       // send this new request
       // forward result to user
-      return "";
+      var options = {};
+      options.method = req.method;
+      options.headers = req.header;
+      options.headers.Via = this.id;
+      var signature = this.sign.sign(req);
+      options.headers.Authorization = signature;
+      options.host = host;
+      optins.path = uri;
+      http.request(options, function(rsp){
+        if (res.statusCode == 404){
+          done(404);
+        }
+        else {
+          var chunks = [];
+          res.on('data', (c)=>chunks.push(c))
+          .on('end', () => done(Buffer.concat(chunks)));
+        }
+      });
     }
     else{
       // DO NOT send this request
-      return 401;
+      done(401);
     }
   }
 }

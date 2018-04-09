@@ -16,7 +16,7 @@ var sign = ensign.TestSign("", "");
 var gateway = new ensign.Ensign(1, route, auth, access, sign);
 
 app.use("/", function(req, res){
-  res.send(gateway.request(req.originalUrl, req));
+  gateway.request(req.originalUrl, req, (x)=>res.send(x));
 })
 
 
