@@ -31,7 +31,7 @@ class Ensign{
       var signature = this.sign.sign(req);
       options.headers.Authorization = signature;
       options.host = host;
-      optins.path = uri;
+      options.path = uri;
       http.request(options, function(rsp){
         if (res.statusCode == 404){
           done(404);
